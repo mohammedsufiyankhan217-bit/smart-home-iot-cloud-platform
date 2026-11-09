@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartHome | IoT Cloud Platform</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+    --bg: #0b1120;
+    --panel: #111c30;
+    --panel2: #16233a;
+    --border: #26354d;
+    --text: #edf3ff;
+    --muted: #8b9bb5;
+    --blue: #5795ff;
+    --green: #35d49a;
+    --red: #ff6b79;
+    --yellow: #ffc66d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'DM Sans', sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 245px;
+    background: #0d1729;
+    border-right: 1px solid var(--border);
+    padding: 28px 17px;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    margin-bottom: 42px;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #438cff, #795bff);
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+}
+
+.brand h2 {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.brand small {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+.nav-label {
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 0 12px;
+    margin-bottom: 13px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 13px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    transition: .2s;
+}
+
+.nav-link i {
+    width: 18px;
+    text-align: center;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: #1b3151;
+    color: #76aaff;
+}
+
+.sidebar-bottom {
+    margin-top: 45px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.sidebar-bottom p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 7px;
+}
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 32px;
+    max-width: 1600px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.live {
+    background: rgba(53,212,154,.1);
+    color: var(--green);
+    border: 1px solid rgba(53,212,154,.25);
+    border-radius: 30px;
+    padding: 9px 14px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+/* SUMMARY CARDS */
+
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 17px;
+    margin-bottom: 28px;
+}
+
+.summary-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 21px;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 19px;
+}
+
+.summary-card p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.metric-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+}
+
+.blue-bg { background: rgba(87,149,255,.14); color: var(--blue); }
+.green-bg { background: rgba(53,212,154,.13); color: var(--green); }
+.red-bg { background: rgba(255,107,121,.13); color: var(--red); }
+.yellow-bg { background: rgba(255,198,109,.13); color: var(--yellow); }
+
+.summary-card h2 {
+    font-size: 29px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.metric-note {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+/* BUTTON */
+
+.action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #438cff, #685eff);
+    color: white;
+    border: none;
+    padding: 12px 19px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(87,149,255,.2);
+}
+
+.primary-btn:disabled {
+    opacity: .6;
+    cursor: wait;
+    transform: none;
+}
+
+#lastUpdated {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* SECTION */
+
+.section {
+    margin-bottom: 30px;
+    scroll-margin-top: 25px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.section-heading h2 {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.section-heading span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* APPLIANCES */
+
+.appliances {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 16px;
+}
+
+.appliance-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 19px;
+    transition: .2s;
+    min-width: 0;
+}
+
+.appliance-card:hover {
+    border-color: #48658e;
+    transform: translateY(-2px);
+}
+
+.appliance-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.appliance-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    background: var(--panel2);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+.appliance-card h3 {
+    font-size: 13px;
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.appliance-id {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.status {
+    padding: 6px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.normal {
+    color: var(--green);
+    background: rgba(53,212,154,.11);
+}
+
+.warning {
+    color: var(--red);
+    background: rgba(255,107,121,.12);
+}
+
+.reading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid rgba(139,155,181,.12);
+    padding-top: 10px;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.reading span {
+    color: var(--muted);
+    overflow-wrap: anywhere;
+}
+
+.reading strong {
+    color: #dce7fa;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* ALERTS AND HISTORY */
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.alert-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    background: rgba(255,107,121,.07);
+    border: 1px solid rgba(255,107,121,.15);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.alert-item:last-child {
+    margin-bottom: 0;
+}
+
+.alert-icon {
+    color: var(--red);
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+.alert-item p {
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.success-message {
+    color: var(--green);
+    font-size: 12px;
+    padding: 8px 0;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th {
+    color: var(--muted);
+    font-size: 10px;
+    text-align: left;
+    padding: 13px 12px;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: .7px;
+}
+
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid rgba(139,155,181,.12);
+    font-size: 12px;
+    color: #dce7fa;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.record-id {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.footer {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.empty {
+    color: var(--muted);
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+@media(max-width:1100px) {
+    .summary { grid-template-columns: repeat(2,1fr); }
+    .appliances { grid-template-columns: repeat(2,1fr); }
+}
+
+@media(max-width:700px) {
+    .layout { display: block; }
+    .sidebar {
+        width: 100%;
+        padding: 14px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    .brand { margin-bottom: 15px; }
+    .nav-label, .sidebar-bottom { display: none; }
+    .nav-link {
+        display: inline-flex;
+        padding: 9px;
+        margin: 2px;
+        font-size: 11px;
+    }
+    .main { padding: 20px 14px; }
+    .header h1 { font-size: 22px; }
+    .summary { gap: 10px; }
+    .summary-card { padding: 15px; }
+    .summary-card h2 { font-size: 23px; }
+    .appliances { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-house-signal"></i></div>
+        <div>
+            <h2>SmartHome</h2>
+            <small>IoT CLOUD PLATFORM</small>
+        </div>
+    </div>
+
+    <div class="nav-label">MAIN MENU</div>
+
+    <a href="#dashboard" class="nav-link active">
+        <i class="fa-solid fa-grip"></i> Dashboard
+    </a>
+
+    <a href="#applianceSection" class="nav-link">
+        <i class="fa-solid fa-plug"></i> Appliance Monitoring
+    </a>
+
+    <a href="#energySection" class="nav-link">
+        <i class="fa-solid fa-bolt"></i> Energy Monitoring
+    </a>
+
+    <a href="#alertsSection" class="nav-link">
+        <i class="fa-solid fa-triangle-exclamation"></i> System Alerts
+    </a>
+
+    <a href="#historySection" class="nav-link">
+        <i class="fa-solid fa-cloud"></i> Cloud Processing
+    </a>
+
+    <div class="sidebar-bottom">
+        <div style="color:var(--green);font-size:12px;font-weight:700;">
+            <i class="fa-solid fa-circle-check"></i> Cloud Connected
+        </div>
+        <p>AWS EC2 · PostgreSQL · S3</p>
+    </div>
+
+</aside>
+
+<main class="main" id="dashboard">
+
+<header class="header">
+    <div>
+        <h1>Smart Home Overview</h1>
+        <p>Monitor appliances, energy consumption and cloud processing.</p>
+    </div>
+
+    <div class="header-right">
+        <span class="live"><span class="live-dot"></span>SYSTEM ONLINE</span>
+    </div>
+</header>
+
+<!-- SUMMARY -->
+
+<section class="summary">
+
+    <div class="summary-card">
+        <div class="summary-top">
+            <p>Total Appliances</p>
+            <div class="metric-icon blue-bg"><i class="fa-solid fa-house"></i></div>
+        </div>
+        <h2 id="total">0</h2>
+        <div class="metric-note">Connected appliances</div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-top">
+            <p>Normal Appliances</p>
+            <div class="metric-icon green-bg"><i class="fa-solid fa-circle-check"></i></div>
+        </div>
+        <h2 id="normalCount">0</h2>
+        <div class="metric-note">Operating normally</div>
+    </div>
+
+    <div class="summary-card">
+        <div class="summary-top">
+            <p>Warning Appliances</p>
+            <div class="metric-icon red-bg"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        </div>
+        <h2 id="warningCount">0</h2>
+        <div class="metric-note">Require attention</div>
+    </div>
+
+    <div class="summary-card" id="energySection">
+        <div class="summary-top">
+            <p>Total Power Consumption</p>
+            <div class="metric-icon yellow-bg"><i class="fa-solid fa-bolt"></i></div>
+        </div>
+        <h2 id="power">0 W</h2>
+        <div class="metric-note">Combined appliance power</div>
+    </div>
+
+</section>
+
+<!-- ACTION -->
+
+<div class="action-row">
+    <button class="primary-btn" id="processButton" onclick="loadDashboard()">
+        <i class="fa-solid fa-rotate"></i> Generate & Process Sensor Data
+    </button>
+    <span id="lastUpdated">Waiting for sensor data...</span>
+</div>
+
+<!-- APPLIANCES -->
+
+<section class="section" id="applianceSection">
+
+    <div class="section-heading">
+        <h2><i class="fa-solid fa-plug" style="color:var(--blue);margin-right:8px;"></i>Appliance Monitoring</h2>
+        <span>10 smart appliances</span>
+    </div>
+
+    <div class="appliances" id="appliances">
+        <p class="empty">Loading appliance data...</p>
+    </div>
+
+</section>
+
+<!-- ALERTS -->
+
+<section class="section" id="alertsSection">
+
+    <div class="section-heading">
+        <h2><i class="fa-solid fa-bell" style="color:var(--yellow);margin-right:8px;"></i>System Alerts</h2>
+        <span>Live processing alerts</span>
+    </div>
+
+    <div class="panel" id="alerts">
+        <p class="empty">No alerts generated yet.</p>
+    </div>
+
+</section>
+
+<!-- CLOUD HISTORY -->
+
+<section class="section" id="historySection">
+
+    <div class="section-heading">
+        <h2><i class="fa-solid fa-cloud-arrow-down" style="color:var(--blue);margin-right:8px;"></i>Cloud Processing History</h2>
+        <span>AWS RDS · Latest 5 records</span>
+    </div>
+
+    <div class="panel">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Process ID</th>
+                        <th>Appliances</th>
+                        <th>Normal</th>
+                        <th>Warnings</th>
+                        <th>Power (W)</th>
+                        <th>Processed At</th>
+                    </tr>
+                </thead>
+                <tbody id="historyBody">
+                    <tr><td colspan="6">Loading processing history...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <span>SmartHome IoT Cloud Platform</span>
+    <span>Powered by AWS EC2 · S3 · PostgreSQL</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+
+const applianceIcons = {
+    "Air Conditioner": "fa-snowflake",
+    "Refrigerator": "fa-temperature-low",
+    "Washing Machine": "fa-soap",
+    "Smart TV": "fa-tv",
+    "Smart Lighting": "fa-lightbulb",
+    "Water Heater": "fa-hot-tub-person",
+    "Smart Fan": "fa-fan",
+    "Microwave Oven": "fa-microwave",
+    "Smart Door Lock": "fa-lock",
+    "Water Purifier": "fa-glass-water"
+};
+
+function formatLabel(key) {
+    return key
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, str => str.toUpperCase());
+}
+
+async function loadDashboard() {
+
+    const button = document.getElementById("processButton");
+    button.disabled = true;
+    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
+    try {
+
+        const response = await fetch("/api/process");
+
+        if (!response.ok) {
+            throw new Error("Server error");
+        }
+
+        const result = await response.json();
+        const summary = result.results.summary;
+        const appliances = result.results.appliances;
+
+        document.getElementById("total").textContent =
+            summary.totalAppliances;
+
+        document.getElementById("normalCount").textContent =
+            summary.normalAppliances;
+
+        document.getElementById("warningCount").textContent =
+            summary.warningAppliances;
+
+        document.getElementById("power").textContent =
+            Number(summary.totalPowerConsumption).toLocaleString("en-IN") + " W";
+
+        document.getElementById("lastUpdated").textContent =
+            "Last processed: " + new Date().toLocaleString();
+
+        const container = document.getElementById("appliances");
+        container.innerHTML = "";
+
+        appliances.forEach(item => {
+
+            const isNormal = item.processingStatus === "NORMAL";
+            const card = document.createElement("div");
+
+            card.className = "appliance-card";
+
+            const icon = applianceIcons[item.appliance] || "fa-microchip";
+
+            const readings = Object.entries(item.readings)
+                .map(([key, value]) => `
+                    <div class="reading">
+                        <span>${formatLabel(key)}</span>
+                        <strong>${value}</strong>
+                    </div>
+                `).join("");
+
+            card.innerHTML = `
+                <div class="appliance-head">
+                    <div>
+                        <div class="appliance-icon">
+                            <i class="fa-solid ${icon}"></i>
+                        </div>
+                        <h3>${item.appliance}</h3>
+                        <div class="appliance-id">${item.applianceId}</div>
+                    </div>
+
+                    <span class="status ${isNormal ? "normal" : "warning"}">
+                        ${item.processingStatus}
+                    </span>
+                </div>
+
+                ${readings}
+            `;
+
+            container.appendChild(card);
+        });
+
+        const alerts = appliances.flatMap(item =>
+            item.alerts.map(alert => `
+                <div class="alert-item">
+                    <i class="fa-solid fa-triangle-exclamation alert-icon"></i>
+                    <div>
+                        <strong>${item.appliance}</strong>
+                        <p>${alert}</p>
+                    </div>
+                </div>
+            `)
+        );
+
+        document.getElementById("alerts").innerHTML =
+            alerts.length ? alerts.join("") :
+            '<p class="success-message"><i class="fa-solid fa-circle-check"></i> All appliances are operating normally.</p>';
+
+        await loadHistory();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to process sensor data. Please check the server.");
+    } finally {
+        button.disabled = false;
+        button.innerHTML = '<i class="fa-solid fa-rotate"></i> Generate & Process Sensor Data';
+    }
+}
+
+// GET processing history from AWS PostgreSQL
+
+async function loadHistory() {
+
+    const body = document.getElementById("historyBody");
+
+    try {
+
+        const response = await fetch("/api/history");
+
+        if (!response.ok) {
+            throw new Error("Unable to retrieve history");
+        }
+
+        const result = await response.json();
+
+        if (!result.history || result.history.length === 0) {
+            body.innerHTML = '<tr><td colspan="6">No processing records found.</td></tr>';
+            return;
+        }
+
+        body.innerHTML = result.history.map(record => `
+            <tr>
+                <td class="record-id">#${record.id}</td>
+                <td>${record.total_appliances}</td>
+                <td style="color:var(--green)">${record.normal_appliances}</td>
+                <td style="color:var(--red)">${record.warning_appliances}</td>
+                <td>${Number(record.total_power_consumption).toLocaleString("en-IN")}</td>
+                <td>${new Date(record.processed_at).toLocaleString()}</td>
+            </tr>
+        `).join("");
+
+    } catch (error) {
+        console.error(error);
+        body.innerHTML = '<tr><td colspan="6">Unable to load processing history.</td></tr>';
+    }
+}
+
+// Initial dashboard load
+
+loadDashboard();
+
+// Navigation active state
+
+document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+        document.querySelectorAll(".nav-link").forEach(item =>
+            item.classList.remove("active")
+        );
+        link.classList.add("active");
+    });
+});
+
+</script>
+
+</body>
+</html>

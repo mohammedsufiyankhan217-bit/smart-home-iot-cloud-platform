@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+smart-home-iot.env
+*.pem
+node_modules/
